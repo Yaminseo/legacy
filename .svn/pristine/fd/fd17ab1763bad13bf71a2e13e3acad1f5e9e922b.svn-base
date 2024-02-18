@@ -1,0 +1,4 @@
+jdbc.oracleDriver=oracle.jdbc.driver.OracleDriver
+jdbc.oracleUrl=ENC(yX5bo/RbSGgojmaVTbrqTg0BqPxL7oaM3pSNG+IwZ+ep/wdyixInbYR2dGgTmtDiNU6z9tx126A=)
+jdbc.oracleUserName=ENC(6HJxi1L305Yqqc12eyFkRQ==)
+jdbc.oraclePassWord=ENC(04l0vnBQWeCOItKbO/F2Rg==)

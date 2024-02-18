@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.sky.board.dao.BoardDao">
+
+	<select id="boardList" parameterType="kr.co.sky.board.vo.BoardVo" resultType="kr.co.sky.board.vo.BoardVo">
+		SELECT SEQ
+			, CODE_ID
+			, CODE_NM
+			, CODE_TYPE
+			, VALUE1
+			, VALUE2
+			, VALUE3
+			, VALUE4
+			, VALUE5
+			, VALUE6
+			, VALUE7
+			, VALUE8
+			, VALUE9
+			, VALUE10
+			, USE_YN
+			, REG_ID
+			, REG_DE
+		FROM TB_CMM_CODE
+		WHERE CODE_ID = #{codeId }
+		AND CODE_TYPE = #{codeType }
+	</select>
+
+</mapper>

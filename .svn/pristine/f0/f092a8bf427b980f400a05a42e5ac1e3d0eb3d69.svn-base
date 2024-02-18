@@ -1,0 +1,40 @@
+package kr.co.sky.board.controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.co.sky.board.service.BoardService;
+import kr.co.sky.board.vo.BoardVo;
+
+@Controller
+@RequestMapping(value="/board/")
+public class BoardController {
+
+	@Autowired
+	private BoardService boardService;
+
+	@RequestMapping(value="boardList.do")
+	public String boardList(@ModelAttribute BoardVo boardVo, Model model) {
+
+		Map<String, Object> map = boardService.boardList(boardVo);
+
+		model.addAttribute("optionList", map.get("optionList"));
+
+		return "/board/boardList";
+	}
+
+	@RequestMapping(value="boardDetail.do")
+	public String boardDetail() {
+		return "/board/boardDetail";
+	}
+
+	@RequestMapping(value="boardRegist.do")
+	public String boardRegist() {
+		return "/board/boardRegist";
+	}
+}

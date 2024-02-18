@@ -1,0 +1,34 @@
+package kr.co.sky.user.service.impl;
+
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.co.sky.user.dao.UserDao;
+import kr.co.sky.user.service.UserService;
+import kr.co.sky.user.vo.UserVo;
+
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserDao userDao;
+
+	@Override
+	public void userCreateInsert(UserVo userVo) {
+		userVo.setUserNm(userVo.getUserNm() + "_TX");		// 서동성 -> 서동성_TX
+
+		String hashPassword = BCrypt.hashpw(userVo.getUserPw(), BCrypt.gensalt());
+		userVo.setUserPw(hashPassword);		// 암호화 저장
+
+		userDao.userCreateInsert(userVo)
+;
+	}
+
+	@Override
+	public boolean createIdCheck(String userId) {
+		return userDao.createIdCheck(userId);
+	}
+
+}

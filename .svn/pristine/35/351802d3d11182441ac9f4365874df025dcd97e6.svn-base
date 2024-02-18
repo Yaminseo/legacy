@@ -1,0 +1,125 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+
+body {
+	/* background: #212121; */
+	background: white;
+	font-size:22px;
+	line-height: 32px;
+	/* color: #ffffff; */
+	color: blcak;
+	word-wrap:break-word !important;
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+	font-size: 60px;
+	text-align: center;
+	color: #FFF;
+}
+
+h3 {
+	font-size: 30px;
+	text-align: center;
+	color: #FFF;
+}
+
+h3 a {
+	color: #FFF;
+}
+
+a {
+	color: #FFF;
+}
+
+h1 {
+	margin-top: 100px;
+	text-align:center;
+	font-size:60px;
+	font-family: 'Bree Serif', 'serif';
+}
+
+#container {
+	margin: 0 auto;
+}
+
+p {
+	text-align: center;
+}
+
+nav {
+	margin: 50px 0;
+	/* background-color: #E64A19; */
+	background-color: black;
+}
+
+nav ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	position: relative;
+}
+
+nav ul li {
+	display:inline-block;
+	/* background-color: #E64A19; */
+	background-color: black;
+}
+
+nav a {
+	display:block;
+	padding:0 10px;
+	color:#FFF;
+	font-size:20px;
+	line-height: 60px;
+	text-decoration:none;
+}
+
+nav a:hover {
+	/* background-color: #000000;  */
+	background-color: #E64A19;
+}
+
+/* 기본적으로 드롭다운을 숨김 */
+nav ul ul {
+	display: none;
+	position: absolute;
+	top: 60px; /* 주 메뉴의 높이 */
+}
+
+/* Hover시 드롭다운을 표시 */
+nav ul li:hover > ul {
+	display:inherit;
+}
+
+/* 1단계 드롭다운 */
+nav ul ul li {
+	width:170px;
+	float:none;
+	display:list-item;
+	position: relative;
+}
+
+/* 2,3단계 또는 그 이상	*/
+nav ul ul ul li {
+	position: relative;
+	top:-60px;
+	left:170px;
+}
+
+/* 드롭다운 기호를 변경하려면 이 부분을 변경 */
+li > a:after { content:  ' +'; }
+li > a:only-child:after { content: ''; }
+
+.goLogin {
+	margin-left: 680px;
+}
+
+.csCenter {
+	margin-left: 20px;
+}
+
+h2 {
+	text-align: center;
+}
+

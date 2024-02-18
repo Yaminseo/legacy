@@ -1,0 +1,12 @@
+.header {
+	height: 800px;
+	border: 1px solid #666666;
+}
+
+.idInput {
+	padding: 10px 10px 0px 10px;
+}
+
+.btn {
+	text-align: center;
+}

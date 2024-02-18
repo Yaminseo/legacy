@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- set DB Mysql -->
+	<!-- <bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+			<property name="url" value="jdbc:mysql://아이피 주소:포트/bmw"></property>
+			<property name="username" value="계정명"></property>
+			<property name="password" value="패스워드"></property>
+	</bean> -->
+
+	<!-- set DB Mssql -->
+	<!-- <bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+		<property name="url" value="jdbc:sqlserver://ip;DatabaseName=데이터베이스명"/>
+		<property name="username" value="계정명"></property>
+		<property name="password" value="패스워드"></property>
+	</bean> -->
+
+		<!-- 버전 5.1.x 이후 버전부터는 타임존을 인식하지 못하는 이슈가 있음
+		기존 String jdbc:mysql://www.skysky.xyz:1562/spring");에서 아래와 같이 추가해줘야된다..
+		"jdbc:mysql://www.skysky.xyz:1562/spring?serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false");
+		"jdbc:log4jdbc:mysql://www.skysky.xyz:1562/wdt?serverTimezone=UTC"); -->
+
+	<bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES"/>
+		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD"/>
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration"/>
+		<property name="password" value="jdbcPassWord"/>
+	</bean>
+
+	<bean id="propertyConfig" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor"/>
+		<property name="locations">
+			<list>
+				<value>classpath:config/properties/*Config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 데이터 베이스 연동 (oracle) -->
+	<bean id="dataSourceOracle" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.oracleDriver}"/>
+		<property name="url" value="${jdbc.oracleUrl}" />
+		<property name="username" value="${jdbc.oracleUserName}" />
+		<property name="password" value="${jdbc.oraclePassWord}" />
+	</bean>
+
+	<bean id="logOracle" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceOracle" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL   :  &#10;&#10;                        "/>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- set DB MYSQL -->
+	<!-- <bean id="dataSourceMysql" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${mysql.mysqlDriver}"></property>
+		<property name="url" value="${mysql.mysqlUrl}"></property>
+		<property name="username" value="${mysql.mysqlUserName}"></property>
+		<property name="password" value="${mysql.mysqlPassWord}"></property>
+	</bean>
+
+	<bean id="logMysql" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceMysql" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="MYSQL   :  &#10;&#10;                        "/>
+			</bean>
+		</property>
+	</bean> -->
+</beans>

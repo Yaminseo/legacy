@@ -1,0 +1,542 @@
+body{
+    padding: 0;
+    margin: 0;
+
+}
+
+.mainDiv{
+    width:100%;
+    height:100%;
+
+}
+
+.detailMainDiv{
+    width:100%;
+    height:100%;
+}
+
+
+.contentDiv{
+    height:800px;
+    padding: 40px;
+    background-color: #ffffff;
+}
+
+.newImage{
+	width:20px;
+	height:20px;
+}
+
+/* .boardDiv{
+    width:97%;
+    height:1100px;
+    padding:40px;
+} */
+
+.boardTable{
+    width:100%;
+    border-top:1px solid black;
+    border-bottom: 1px solid black;
+}
+.titleTr{
+    height:40px;
+    border-bottom: 1px solid black;
+}
+
+.titleNumTh{
+    width: 120px;
+    font-size:14pt;
+    font-weight: 700;
+    border-right: 1px dotted black;
+    border-bottom: 1px dotted black;
+}
+
+.titleSubTh{
+    width: 120px;
+    font-size:14pt;
+    font-weight: 700;
+    border-right: 1px dotted black;
+    border-bottom: 1px dotted black;
+}
+
+.titleSubThRight{
+    width: 120px;
+    font-size:14pt;
+    font-weight: 700;
+    border-bottom: 1px dotted black;
+}
+
+.titleContTh{
+    width: 720px;
+    font-size:14pt;
+    font-weight: 700;
+    border-right: 1px dotted black;
+    border-bottom: 1px dotted black;
+}
+
+.titleContThRight{
+    width: 720px;
+    font-size:14pt;
+    font-weight: 700;
+}
+
+.contTr{
+    height:55px;
+    border-bottom: 1px dotted black;
+}
+
+.contTr:hover{
+    background-color:#FFFFD2 ;
+}
+
+.contTd{
+    font-size:12pt;
+    border-right:1px dotted black;
+    border-bottom: 1px dotted black;
+    padding-left:10px;
+    padding-right:10px;
+    text-align: center;
+}
+
+.contTdSubject{
+	cursor:pointer;
+    font-size:12pt;
+    border-right:1px dotted black;
+    border-bottom: 1px dotted black;
+    text-align: left;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.contTdSubject:hover{
+	text-decoration:underline;
+}
+
+.contRight{
+    font-size:12pt;
+    padding-left:10px;
+    padding-right:10px;
+    text-align: center;
+    border-bottom: 1px dotted black;
+}
+
+.pagination{
+    padding-left: 35%;
+}
+
+.paginationUl{
+    list-style:none;
+}
+
+.paginationLeft{
+    width:60px;
+    height:30px;
+    padding-top:10px;
+    float:left;
+    border-radius: 100px;
+    text-align: center;
+}
+
+.paginationRight{
+    width:60px;
+    height:30px;
+    padding-top:10px;
+    margin-left:20px;
+    float:left;
+    border-radius: 100px;
+    text-align: center;
+}
+
+
+.paginationListNum{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius:50%;
+}
+
+.paginationList:hover{
+    background-color: #F2CB61;
+}
+
+.paginationListNum:hover{
+    background-color: #F2CB61;
+}
+
+.ListSelect{
+     background-color: red;
+  	 color: #ffffff;
+}
+
+.searchDiv{
+    height:60px;
+}
+
+.searchDivRight{
+    float:right;
+}
+
+.subSelect{
+    width:120px;
+    height:35px;
+    border-radius:5px;
+}
+
+.searchNm{
+    width:350px;
+    height:30px;
+    border-radius:5px;
+}
+
+.searchNm:hover{
+    background-color:#D9E5FF ;
+}
+
+.searchBtn{
+    width:60px;
+    height:35px;
+    border-radius: 5px;
+    background-color:#0054FF ;
+    border:0;
+    color: #ffffff;
+    font-weight: 700;
+    cursor:pointer;
+}
+
+.searchBtn:hover{
+    background-color: #489CFF;
+}
+
+.boardTitle{
+    text-align: center;
+
+}
+.titleSpan{
+    font-size:16pt;
+    font-weight: 700;
+}
+
+.btnAreaRight{
+    float:right;
+    padding-bottom: 20px;
+}
+
+.registBtn{
+    width:100px;
+    height:35px;
+    border-radius: 5px;
+    background-color:#0054FF ;
+    border:0;
+    color: #ffffff;
+    font-weight: 700;
+    cursor:pointer
+}
+
+.registBtn:hover{
+	background-color:#489CFF
+}
+
+.detailContentDiv{
+    height:auto;
+    padding: 100px 40px 60px 250px;
+    background-color: #ffffff;
+}
+
+.detailDiv{
+    width:75%;
+    height:auto;
+    padding:40px;
+    border: 1px solid #BDBDBD;
+    border-radius: 20px;
+    box-shadow: 20px 20px 30px #000808;
+}
+
+
+.detailTitleDiv{
+    height:20px;
+    padding:10px;
+}
+
+.detailSubSpan{
+    font-size:14pt;
+    color:#00D8FF;
+    font-weight: 600;
+}
+
+.detailTitleSpan{
+    font-size:13pt;
+    font-weight: 600;
+    margin-left:60px;
+}
+
+.titleLeft{
+    float:left;
+}
+
+.titleRight{
+    float:right
+}
+
+.detailWriter{
+    font-size: 12pt;
+    font-weight:600;
+}
+
+.detailInformDiv{
+    padding:10px;
+    height:20px;
+}
+
+.detailInformTitle{
+    font-size:12pt;
+    font-weight: 500;
+}
+
+.detailInformCon{
+    font-size:12pt;
+    font-weight: 400;
+    margin-left:5px;
+    color:#BDBDBD;
+}
+
+.detailGubun{
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.detailNum{
+    font-size:12pt;
+    font-weight: 600;
+}
+
+.detailReplyNum{
+    font-size:12pt;
+    font-weight: 600;
+    color:#ff0000;
+}
+
+.detailContent{
+    background-color: #D9E5FF;
+    padding:40px;
+}
+
+.recommentBtn{
+    width:100px;
+    height:35px;
+    border-radius: 5px;
+    background-color:#0054FF ;
+    border:0;
+    color: #ffffff;
+    font-weight: 700;
+    cursor:pointer;
+}
+
+.recommentBtn:hover{
+	background-color:#489CFF;
+}
+
+.recommentBtnArea{
+    margin-top:50px;
+    text-align: center;
+}
+
+.ReplyInformDiv{
+    margin-top:20px;
+    padding:10px;
+}
+
+.ReplyContentDiv{
+    margin-top:10px;
+    min-height:250px;
+    background-color: #D9E5FF;
+    padding:5px;
+}
+.ReplyLine{
+    min-height:100px;
+}
+
+.ReplyLeftLine{
+    width: 200px;
+    min-height:100px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin : 20px;
+
+}
+
+.ReplyWriterInform{
+    height:20px;
+}
+
+.ReplyContent{
+    margin-top:20px;
+    padding:5px;
+    font-size:11pt;
+    font-weight: 500;
+}
+
+.ReplyRightLine{
+    min-width: 300px;
+    max-width: 300px;
+    word-break:break-all;
+    min-height:100px;
+    background-color: #FFF29E;
+    border-radius: 10px;
+    float: right;
+}
+
+.ReplyRegistBtn{
+    margin-top:25px;
+    height:100px;
+}
+
+.ReplyTextAreaDiv{
+    width:70%;
+    height:100px;
+    float:left;
+    margin-left:40px;
+}
+
+.ReplyText{
+    width:100%;
+    height:100px;
+    border-radius: 5px;
+}
+
+.ReplyBtnArea{
+     width:16%;
+     height:100px;
+     float: right;
+}
+
+.ReplyRegist{
+    width:90%;
+    height:60%;
+    background-color:#0054FF ;
+    border-radius: 10px;
+    border:0;
+    font-weight: 600;
+    color: #ffffff;
+    cursor:pointer;
+}
+.ReplyRegist:hover{
+	background-color:#489CFF;
+}
+.ReplyRefresh{
+    width:90%;
+    height:30%;
+    background-color:#0054FF ;
+    border-radius: 10px;
+    margin-top:15px;
+    border:0;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.ReplyRefresh:hover{
+	background-color:#489CFF;
+}
+
+.registDiv{
+    width:60%;
+    height:800px;
+    padding:40px;
+    border: 1px solid #BDBDBD;
+    border-radius: 20px;
+    box-shadow: 20px 20px 30px #000808;
+}
+
+.registTitleDiv{
+    height:60px;
+    padding:20px;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.titleInput{
+    margin-left:40px;
+    width:50%;
+    height:30px;
+    border-radius:5px;
+}
+
+.registContentEditor{
+    margin-top:40px;
+    height:600px;
+}
+
+.editor__editable,
+/* Classic build. */
+main .ck-editor[role='application'] .ck.ck-content,
+/* Decoupled document build. */
+.ck.editor__editable[role='textbox'],
+.ck.ck-editor__editable[role='textbox'],
+/* Inline & Balloon build. */
+.ck.editor[role='textbox'] {
+	background: #fff;
+	font-size: 1em;
+	line-height: 1.6em;
+	min-height: 450px;
+    max-height: 450px;
+	padding: 1.5em 2em;
+}
+
+.ck.ck-editor__editable {
+	background: #fff;
+	border: 1px solid hsl(0, 0%, 70%);
+}
+
+/* Because of sidebar `position: relative`, Edge is overriding the outline of a focused editor. */
+.ck.ck-editor__editable {
+	position: relative;
+	z-index: var(--ck-sample-editor-z-index);
+}
+
+.editor-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	position: relative;
+	justify-content: center;
+}
+
+.editor-container--with-sidebar > .ck.ck-editor {
+	width: calc( 100% - var(--ck-sample-sidebar-width) );
+}
+
+.btnArea{
+    text-align: center;
+}
+
+.boardRegistBtn{
+    width:100px;
+    height:45px;
+    border-radius: 5px;
+    background-color:#0054FF ;
+    border:0;
+    color: #ffffff;
+    font-weight: 700;
+    cursor:pointer;
+}
+
+.boardRegistBtn:hover{
+	background-color:#489CFF;
+}
+
+.btnBlue{
+	width:60px;
+    height:25px;
+    border-radius: 5px;
+    background-color:#0054FF ;
+    border:0;
+    color: #ffffff;
+    font-weight: 700;
+    cursor:pointer;
+}
+
+.rightBtnArea{
+	padding-bottom:10px;
+	float:right;
+	margin-right:20%;
+	margin-bottom:10px;
+}

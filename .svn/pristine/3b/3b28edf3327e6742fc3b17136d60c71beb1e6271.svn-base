@@ -1,0 +1,63 @@
+package kr.co.sky.common.login.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.co.sky.common.login.LoginManager;
+import kr.co.sky.common.login.service.LoginService;
+import kr.co.sky.common.login.vo.LoginVo;
+
+@Controller
+public class LoginController {
+
+	@Autowired
+	private LoginService loginService;
+
+	@RequestMapping(value="/login/loginPage.do")
+	public String loginPage() {
+		return "login/loginPage";
+	}
+
+	/*@RequestMapping(value="loginCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public String loginCheck(@RequestParam(value="loginUserId") String userId, @RequestParam(value="loginUserPw") String userPw) {
+		System.out.println(">>>>>>>>>> loginUserId :: "  + userId);
+		System.out.println(">>>>>>>>>> loginUserPw :: "  + userPw);
+		return "ok";
+	}*/
+
+	@RequestMapping(value={"/login/loginCheck.do"}, method = RequestMethod.POST)
+	@ResponseBody
+	public String loginCheck(LoginVo loginVo, HttpServletRequest req) {
+
+		// 정직용
+		System.out.println(">>>>>>>>>> vo loginUserId :: "  + loginVo.getLoginUserId());
+		System.out.println(">>>>>>>>>> vo loginUserPw :: "  + loginVo.getLoginUserPw());
+
+		// 프리용
+		System.out.println(">>>>>>>>>> vo req :: "  + req.getParameter("loginUserId"));
+		System.out.println(">>>>>>>>>> vo req :: "  + req.getParameter("loginUserPw"));
+
+		return loginService.loginCheck(loginVo, req);
+	}
+
+	@RequestMapping(value="/login/logOut.do")
+	@ResponseBody
+	public String logOut(HttpSession session) {
+		LoginManager loginManager = LoginManager.getInstance();
+		String userId = (String) session.getAttribute("userId");
+		if(userId == null) {
+			loginManager.removeSession("");
+		}else{
+			loginManager.removeSession(userId);	//hash테이블에 해당 유저를 삭제한다
+			//session.invalidate();
+		}
+		return "";
+	}
+}

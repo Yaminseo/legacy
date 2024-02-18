@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.sky.common.reply.dao.ReplyDao">
+
+	<insert id="insertReply" parameterType="kr.co.sky.common.reply.vo.ReplyVo">
+		INSERT INTO BOARD_REPLY (
+			BOR_IDX
+			, BOR_REPLY_IDX
+			, BOR_IDX_REF
+			, REPLY_TEXT
+			, REPLYER
+			, USER_ID
+		) VALUES (
+			#{borIdx }
+			, BOARD_REPLY_SEQ.NEXTVAL
+			, #{borIdxRef }
+			, #{replyText }
+			, #{replyer }
+			, #{userId }
+		)
+	</insert>
+
+	<select id="freeBoardListJsonReply" parameterType="kr.co.sky.common.reply.vo.ReplyVo" resultType="kr.co.sky.common.reply.vo.ReplyVo">
+		SELECT	BOR_REPLY_IDX
+			, BOR_IDX
+			, REPLY_TEXT
+			, REPLYER
+			, REPLYER
+			, USER_ID
+			, REG_DE
+		FROM BOARD_REPLY
+		WHERE BOR_IDX = #{borIdx }
+		ORDER BY BOR_REPLY_IDX
+	</select>
+
+</mapper>

@@ -1,0 +1,13 @@
+package kr.co.sky.board.dao;
+
+import java.util.List;
+
+import kr.co.sky.board.vo.BoardVo;
+import kr.co.sky.common.annotation.OracleSqlMapperScan;
+
+@OracleSqlMapperScan
+public interface BoardDao {
+
+	public List<BoardVo> boardList(BoardVo boardVo);
+
+}

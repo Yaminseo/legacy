@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<bean id="oracleSqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg ref="oracleSessionFactory" />
+	</bean>
+
+
+	<!-- set Mybatis query xml -->
+	<bean id="oracleSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="logOracle" />
+		<!-- <property name="mapperLocations">
+			<list>
+				<value>classpath:/sql/**/*Mapper.xml</value>
+				<value>classpath:/sql/**/*Mapper.xml</value>
+			</list>
+		</property> 여러개 지정할시 사용함-->
+		<property name="configLocation" value="classpath:META-INF/mybatis/mybatis-config.xml" />
+		<!-- <property name="mapperLocations" value="classpath:/sql/**/*_SQL.xml" /> -->
+		<!-- <property name="mapperLocations" value="classpath:/mapper/**/*_SQL.xml" /> -->
+		<property name="mapperLocations" value="classpath:/sqlMapper/**/*Mapper.xml" />
+	</bean>
+
+	<!-- 참고 문서 https://codingnojam.tistory.com/27 -->
+	<bean id="oracleMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- basePackage : 이 패키지 범위 내의 인터페이스를 스캔하겠다. -->
+		<property name="basePackage" value="kr.co.sky" />
+		<!-- annotationClass : 이 어노테이션이 있는 인터페이스만 스캔하겠다. -->
+		<!-- <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper" /> -->
+		<property name="annotationClass" value="kr.co.sky.common.annotation.OracleSqlMapperScan" />
+
+		<property name="sqlSessionFactoryBeanName" value="oracleSessionFactory" />
+	</bean>
+</beans>

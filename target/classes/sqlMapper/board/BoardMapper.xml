@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.sky.board.dao.BoardDao">
+
+	<select id="boardList" parameterType="kr.co.sky.board.vo.BoardVo" resultType="kr.co.sky.board.vo.BoardVo">
+		SELECT SEQ
+			, CODE_ID
+			, CODE_NM
+			, CODE_TYPE
+			, VALUE1
+			, VALUE2
+			, VALUE3
+			, VALUE4
+			, VALUE5
+			, VALUE6
+			, VALUE7
+			, VALUE8
+			, VALUE9
+			, VALUE10
+			, USE_YN
+			, REG_ID
+			, REG_DE
+		FROM TB_CMM_CODE
+		WHERE CODE_ID = #{codeId }
+		AND CODE_TYPE = #{codeType }
+	</select>
+
+	<select id="freeList" parameterType="kr.co.sky.board.vo.BoardVo" resultType="kr.co.sky.board.vo.BoardVo">
+		SELECT	A.FREE_BOR_IDX
+			, A.FREE_BOR_TITLE
+			, A.USER_NM
+			, A.USER_ID
+			, A.FREE_BOR_CONTENTS
+			, A.FREE_BOR_VIEW_CNT
+			, (CONCAT(SUBSTR(REG_DE, 0, 4)||'-', CONCAT(SUBSTR(REG_DE, 5, 2)||'-', SUBSTR(REG_DE, 7, 2))))AS REG_DE
+			, A.USE_YN
+			, (SELECT COUNT(*) FROM LIKE_BOARD B WHERE B.BOARD_TYPE = 'FREE' AND B.BOR_IDX = A.FREE_BOR_IDX) as likeCnt
+			, A.PREFACE
+			, (SELECT COUNT(*) FROM BOARD_REPLY A WHERE BOR_IDX = A.FREE_BOR_IDX) as replyCnt
+			, CASE WHEN dateDiff > 2 then 'N' ELSE 'Y' end as newYn
+		FROM (
+				SELECT ROWNUM RNUM, S.*
+					FROM (
+							SELECT	F.FREE_BOR_IDX
+									, F.FREE_BOR_TITLE
+									, F.USER_NM
+									, F.USER_ID
+									, F.FREE_BOR_CONTENTS
+									, F.FREE_BOR_VIEW_CNT
+									, F.REG_DE
+									, F.USE_YN
+									, fnGetCodeNm('PREF', F.PREFACE) as PREFACE
+									, TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') - TO_DATE(F.REG_DE, 'YYYY-MM-DD') as dateDiff
+								FROM FREE_BOARD F
+							WHERE 1=1
+							AND USE_YN = 'Y'
+							<if test="searchOption == 'optionAll'">
+								AND(FREE_BOR_TITLE LIKE '%' || #{searchNm } || '%' OR USER_ID LIKE '%' || #{searchNm } || '%')
+							</if>
+							<if test="searchOption == 'TITLE'">
+								AND FREE_BOR_TITLE LIKE '%' || #{searchNm } || '%'
+							</if>
+							<if test="searchOption == 'WRITER'">
+								AND USER_ID LIKE '%' || #{searchNm } || '%'
+							</if>
+							ORDER BY FREE_BOR_IDX DESC
+						) S
+				) A
+		WHERE RNUM BETWEEN #{startRowNo } AND #{endRowNo }
+	</select>
+
+	<select id="selectFreeBoardListCount" parameterType="kr.co.sky.board.vo.BoardVo" resultType="int">
+
+		SELECT COUNT(FREE_BOR_IDX)
+			FROM FREE_BOARD
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		<if test="searchOption == 'optionAll'">
+			AND(FREE_BOR_TITLE LIKE '%' || #{searchNm } || '%' OR USER_ID LIKE '%' || #{searchNm } || '%')
+		</if>
+		<if test="searchOption == 'TITLE'">
+			AND FREE_BOR_TITLE LIKE '%' || #{searchNm } || '%'
+		</if>
+		<if test="searchOption == 'WRITER'">
+			AND USER_ID LIKE '%' || #{searchNm } || '%'
+		</if>
+
+		/* kr.co.sky.board.dao.BoardDao.selectFreeBoardListCount */
+
+	</select>
+
+	<insert id="boardSave" parameterType="kr.co.sky.board.vo.BoardVo">
+			MERGE INTO FREE_BOARD
+			USING DUAL
+			ON(FREE_BOR_IDX = #{freeBorIdx})
+		WHEN MATCHED THEN
+			UPDATE SET
+			   PREFACE = #{preface}
+			, FREE_BOR_TITLE = #{freeBorTitle}
+			, FREE_BOR_CONTENTS = #{freeBorContents}
+			, UPDATE_ID = #{userId}
+			, UPDATE_DE = SYSDATE
+		WHERE FREE_BOR_IDX = #{freeBorIdx}
+		WHEN NOT MATCHED THEN
+			INSERT (
+					FREE_BOR_IDX
+					, FREE_BOR_TITLE
+					, USER_NM
+					, USER_ID
+					, FREE_BOR_CONTENTS
+					, PREFACE
+			) VALUES (
+				FREE_BOARD_SEQ.NEXTVAL
+				, #{freeBorTitle }
+				, #{userNm }
+				, #{userId }
+				, #{freeBorContents }
+				, #{preface }
+			)
+	</insert>
+
+	<select id="boardDetail" parameterType="kr.co.sky.board.vo.BoardVo" resultType="kr.co.sky.board.vo.BoardVo">
+
+		SELECT	F.FREE_BOR_IDX
+				, F.FREE_BOR_TITLE
+				, F.USER_NM
+				, F.USER_ID
+				, F.FREE_BOR_CONTENTS
+				, F.FREE_BOR_VIEW_CNT
+				, (SUBSTR(REG_DE, 0, 4)||'-'||SUBSTR(REG_DE, 5, 2)||'-'||SUBSTR(REG_DE, 7, 2)||' '||SUBSTR(REG_DE, 9, 6)) AS REG_DE
+				, fnGetCodeNm('PREF', F.PREFACE) as preface_nm
+				, F.PREFACE
+				, (SELECT COUNT(*) FROM LIKE_BOARD B WHERE B.BOARD_TYPE = 'FREE' AND B.BOR_IDX = #{freeBorIdx} AND DEL_YN = 'N') as likeCnt
+				, (SELECT COUNT(*) FROM LIKE_BOARD B WHERE B.BOARD_TYPE = 'FREE' AND B.BOR_IDX = #{freeBorIdx} AND B.USER_ID = #{userId } AND DEL_YN = 'N') as useYn
+			FROM FREE_BOARD F
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		AND FREE_BOR_IDX = #{freeBorIdx}
+
+		/* kr.co.sky.board.dao.BoardDao.boardDetail */
+
+	</select>
+
+	<update id="freeBoardUpdateCnt" parameterType="String">
+		UPDATE FREE_BOARD
+			SET
+				FREE_BOR_VIEW_CNT = FREE_BOR_VIEW_CNT + 1
+			WHERE
+				FREE_BOR_IDX = #{value}
+
+		/* kr.co.sky.board.dao.BoardDao.freeBoardUpdateCnt */
+	</update>
+
+
+	<update id="mergeLike" parameterType="kr.co.sky.board.vo.BoardVo">
+		MERGE INTO LIKE_BOARD
+			USING DUAL
+			ON(BOR_IDX = #{freeBorIdx })
+		WHEN MATCHED THEN
+			UPDATE SET DEL_YN = CASE WHEN DEL_YN = 'Y' THEN 'N' WHEN DEL_YN = 'N' THEN 'Y' END
+			WHERE BOR_IDX = #{freeBorIdx} AND BOARD_TYPE = 'FREE' AND USER_ID = #{userId}
+		WHEN NOT MATCHED THEN
+			INSERT (
+				BOR_IDX
+				, BOARD_TYPE
+				, USER_ID
+			) VALUES (
+				#{freeBorIdx}
+				, 'FREE'
+				, #{userId}
+			)
+
+		/* kr.co.sky.board.dao.BoardDao.freeBoardUpdateCnt */
+	</update>
+
+	<select id="selectBoardDetailUpdate" parameterType="kr.co.sky.board.vo.BoardVo" resultType="kr.co.sky.board.vo.BoardVo">
+
+		SELECT 	F.FREE_BOR_IDX
+				,F.FREE_BOR_TITLE
+				, F.FREE_BOR_CONTENTS
+				, F.FREE_BOR_VIEW_CNT
+				, fnGetCodeNm('PREF', F.PREFACE) as PREFACE_NM
+				, F.PREFACE
+				, (SELECT COUNT(*) FROM LIKE_BOARD B WHERE B.BOARD_TYPE = 'FREE' AND B.BOR_IDX = #{freeBorIdx} AND DEL_YN = 'N') as likeCnt
+				, (SELECT COUNT(*) FROM LIKE_BOARD B WHERE B.BOARD_TYPE = 'FREE' AND B.BOR_IDX = #{freeBorIdx} AND B.USER_ID = #{userId } AND DEL_YN = 'N') as useYn
+			FROM FREE_BOARD F
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		AND FREE_BOR_IDX = #{freeBorIdx}
+	</select>
+
+	<update id="boardDelete" parameterType="kr.co.sky.board.vo.BoardVo">
+		UPDATE@@ FREE_BOARD SET
+		USE_YN = 'N'
+		, DEL_DE = SYSDATE
+		, DEL_ID = #{userId}
+		WHERE FREE_BOR_IDX = #{freeBorIdx}
+	</update>
+
+	<delete id="boardReplyDelete" parameterType="kr.co.sky.board.vo.BoardVo">
+		DELETE BOARD_REPLY
+		WHERE BOR_IDX = #{freeBorIdx}
+	</delete>
+
+	<delete id="boardlikeDelete" parameterType="kr.co.sky.board.vo.BoardVo">
+		DELETE LIKE_BOARD
+		WHERE BOR_IDX = #{freeBorIdx}
+	</delete>
+
+	<update id="boardUpdate" parameterType="kr.co.sky.board.vo.BoardVo">
+		UPDATE FREE_BOARD SET
+			PREFACE = #{preface}
+			, FREE_BOR_TITLE = #{freeBorTitle}
+			, FREE_BOR_CONTENTS = #{freeBorContents}
+			, UPDATE_ID = #{userId}
+			, UPDATE_DE = SYSDATE
+		WHERE FREE_BOR_IDX = #{freeBorIdx}
+	</update>
+
+</mapper>

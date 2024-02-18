@@ -1,0 +1,11 @@
+package kr.co.sky.user.service;
+
+import kr.co.sky.user.vo.UserVo;
+
+public interface UserService {
+
+	public void userCreateInsert(UserVo userVo);
+
+	public boolean createIdCheck(String userId);
+
+}

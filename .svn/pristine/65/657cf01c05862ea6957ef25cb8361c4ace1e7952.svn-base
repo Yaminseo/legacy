@@ -1,0 +1,11 @@
+package kr.co.sky.board.service;
+
+import java.util.Map;
+
+import kr.co.sky.board.vo.BoardVo;
+
+public interface BoardService {
+
+	public Map<String, Object> boardList( BoardVo boardVo);
+
+}

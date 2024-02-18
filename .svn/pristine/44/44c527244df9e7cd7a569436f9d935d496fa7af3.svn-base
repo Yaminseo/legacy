@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:include page="/menu/menuList.do" />
+<script>
+function goDetail(){
+	location.href="/board/boardDetail.do";
+}
+
+function goRegist(){
+	location.href="/board/boardRegist.do";
+}
+</script>
+<div class="mainDiv">
+	<div class="contentDiv">
+		<div class="boardDiv">
+			<div class="boardTitle">
+				<span class="titleSpan">자유게시판</span>
+			</div><br>
+			<div class="btnAreaRight">
+				<button type="button" class="registBtn" onclick="goRegist()">등록</button>
+			</div><br>
+			<table class="boardTable">
+				<tr class="titleTr">
+					<th class="titleNumTh">번호</th>
+					<th class="titleSubTh"> 말머리</th>
+					<th class="titleContTh">제목</th>
+					<th class="titleSubTh">글쓴이</th>
+					<th class="titleSubTh">작성일</th>
+					<th class="titleSubTh">조회</th>
+					<th class="titleSubThRight">추천</th>
+				</tr>
+				<tr class="contTr">
+					<td class="contTd">1</td>
+					<td class="contTd">공지</td>
+					<td class="contTdSubject">개발자들을 위한 게시판 입니다</td>
+					<td class="contTd">관리자</td>
+					<td class="contTd">2023-10-09</td>
+					<td class="contTd">250</td>
+					<td class="contRight">0</td>
+				</tr>
+				<tr class="contTr">
+					<td class="contTd">11</td>
+					<td class="contTd">질문</td>
+					<td class="contTdSubject" onclick="goDetail()">undefined 오류가 발생하는데 어떻게 해결해야하나요 [4]</td>
+					<td class="contTd">권기범</td>
+					<td class="contTd">2023-10-09</td>
+					<td class="contTd">250</td>
+					<td class="contRight">0</td>
+				</tr>
+			</table> <br>
+			<div class="searchDiv">
+				<div class="searchDivRight">
+					<select class="subSelect" id="searchOption" name="searchOption">
+						<option value="">전체</option>
+						<c:forEach var="optionList" items="${optionList}">
+							<option value="${optionList.value1}">${optionList.codeNm}</option>
+						</c:forEach>
+					</select>
+					<input type="text" class="searchNm">
+					<button type="button" class="searchBtn">조회</button>
+				</div>
+			</div>
+			<div class="pagination">
+				<ul class="paginationUl">
+					<li class="paginationLeft"> << </li>
+					<li class="paginationListNum ListSelect"> 1 </li>
+					<li class="paginationListNum"> 2 </li>
+					<li class="paginationRight"> >> </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<%@ include file="/WEB-INF/include/include-footer.jsp"%>

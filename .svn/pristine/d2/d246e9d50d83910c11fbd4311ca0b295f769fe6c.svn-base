@@ -1,0 +1,104 @@
+.myPageDiv{
+    width:100%;
+    height:100%;
+    padding:40px 100px 160px 400px;
+    font-size:15px;
+    line-height:10px;
+}
+
+.myPageContentDiv{
+    width:45%;
+    height:auto;
+    border: 1px solid #BDBDBD;
+    border-radius: 20px;
+    box-shadow: 20px 20px 30px #000808;
+    padding:20px;
+}
+
+.inputDiv{
+    width:100%;
+    height:40px;
+    padding:10px;
+}
+
+.inputLabel{
+    width:140px;
+    float:left;
+    line-height:35px;
+}
+
+
+.inputArea{
+    width:450px;
+    margin-left:20px;
+    float:left;
+}
+
+.inputUser{
+    width:70%;
+    height:20px;
+    border-radius: 5px;
+    border:1px solid black;
+    padding:5px;
+}
+.inputAddrDiv{
+    width:100%;
+    height:80px;
+    padding:10px;
+}
+
+.myPageContentDiv .inputArea input:read-only{
+	background-color:#EAEAEA;
+}
+
+.inputZipNo{
+    width:80px;
+    height:20px;
+    border-radius: 5px;
+    border:1px solid black;
+}
+
+.zipNoBtn{
+    background-color: #0054FF;
+    width: 80px;
+    height:25px;
+    border:0;
+    border-radius: 5px;
+    color:white;
+    margin-left:10px;
+}
+
+.inputBasicAddr{
+    width:280px;
+    height:20px;
+    border-radius: 5px;
+    border:1px solid black;
+}
+
+.inputAddrDtl{
+    width:390px;
+    height:20px;
+    border-radius: 5px;
+    border:1px solid black;
+}
+.myPageBtnArea{
+    width:100%;
+    height:40px;
+    text-align: center;
+}
+
+.passwordDiv{
+    width:100%;
+    height:100%;
+    font-size:15px;
+    padding:200px 100px 160px 400px;
+}
+
+.passwordContentDiv{
+    width:45%;
+    height:auto;
+    border: 1px solid #BDBDBD;
+    border-radius: 20px;
+    box-shadow: 20px 20px 30px #000808;
+    padding:20px;
+}

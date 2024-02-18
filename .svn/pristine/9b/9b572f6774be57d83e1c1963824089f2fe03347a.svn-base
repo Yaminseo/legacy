@@ -1,0 +1,35 @@
+package kr.co.sky.board.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.co.sky.board.dao.BoardDao;
+import kr.co.sky.board.service.BoardService;
+import kr.co.sky.board.vo.BoardVo;
+
+@Service
+public class BoardServiceImpl implements BoardService {
+
+	@Autowired
+	private BoardDao boardDao;
+
+	@Override
+	public Map<String, Object> boardList(BoardVo boardVo) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		boardVo.setCodeId("SEL");
+		boardVo.setCodeType("FREE");
+
+		List<BoardVo> optionList = boardDao.boardList(boardVo);
+
+		map.put("optionList", optionList);
+
+		return map;
+	}
+
+}
